@@ -1,0 +1,14 @@
+div.stat {
+	width: 958px; 
+	opacity: 1; 
+	border-bottom-left-radius: 5px; 
+	border-bottom-right-radius: 5px; 
+	border-top-right-radius: 5px; 
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #CCCCCC;
+	padding: 5px 5px 0;
+}
+
+.ui-tabs-nav {
+	padding: 0px;
+}

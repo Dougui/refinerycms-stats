@@ -1,0 +1,14 @@
+fr:
+  plugins:
+    stats:
+      title: Statistiques
+  admin:
+    stats:
+      index:
+        title_source: Source
+        title_visitors: Visiteurs
+        title_visits: Visites
+        title_average_time: Temps moyen
+        link_analytics_html: "Vous pouvez consulter plus de données sur le site de Google Analitycs : <a href='https://www.google.com/analytics/'>https://www.google.com/analytics/</a><br/>."
+        login_analytics_html: "Vous devez autoriser l'accés à vos données Google Analytics pour ce site.<br/>Le code de votre site pour Google Analytics est : %{analytics_page_code}.<br/>Vous pouvez modifier ce code dans <a href='/refinery/settings?search=analytics_page_code'>vos paramètres</a>."
+        button_login_text: "Valider"

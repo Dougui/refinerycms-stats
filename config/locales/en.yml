@@ -1,0 +1,14 @@
+en:
+  plugins:
+    stats:
+      title: Stats
+  admin:
+    stats:
+      stat_parts:
+        title_source: Source
+        title_visitors: Visitors
+        title_visits: Visits
+        title_average_time: Average time
+        link_analytics_html: "You can view more data on the Google Analitycs site : <a href='https://www.google.com/analytics/'>https://www.google.com/analytics/</a><br/>."
+        login_analytics_html: "You need access to your Google Analytics data for this site.<br/>The code of your site for Google Analytics is : %{analytics_page_code}.<br/>You can change this code in <a href='/refinery/settings?search=analytics_page_code'>your settings</a>."
+        button_login_text: "Validate"
