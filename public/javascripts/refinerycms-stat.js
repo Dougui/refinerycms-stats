@@ -36,7 +36,7 @@ var pageCode;
  * Initialize all the objects from the Google AJAX Apis once they
  *     have been loaded and are ready to use.
  */
-function init(pageCodeArg) {
+function collectStatsData(pageCodeArg) {
   var divLogin = document.getElementById('login');
   var divLogged = document.getElementById('logged');
   divLogin.style.visibility = 'hidden';

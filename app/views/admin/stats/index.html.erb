@@ -65,7 +65,7 @@
       $(function() {
         $( "#tabs" ).tabs();
       });			
-      init('<%= RefinerySetting.find_or_set(:analytics_page_code, "UA-0000000-0") %>');
+      collectStatsData('<%= RefinerySetting.find_or_set(:analytics_page_code, "UA-0000000-0") %>');
     });
   </script>
 <% end %>
