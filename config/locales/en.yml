@@ -4,7 +4,7 @@ en:
       title: Stats
   admin:
     stats:
-      stat_parts:
+      index:
         title_source: Source
         title_visitors: Visitors
         title_visits: Visits
