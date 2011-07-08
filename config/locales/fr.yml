@@ -5,7 +5,9 @@ fr:
   admin:
     stats:
       index:
-        title_source: Source
+        title_keywords: Mot clés
+        title_page_views: Pages Vues
+        title_source: Sources
         title_visitors: Visiteurs
         title_visits: Visites
         title_average_time: Temps moyen

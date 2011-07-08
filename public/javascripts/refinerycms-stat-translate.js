@@ -6,8 +6,12 @@ I18n.translations = {
         "title":"Title",
         "visits":"Visits",
         "visitors":"Visitors", 
-        "pages_views": "Pages Views", 
-        "keywords": "Keywords", "date": "Date", "average_time": "Average time"
+        "page_views": "Page Views", 
+        "keywords": "Keywords", 
+				"date": "Date", 
+				"average_time": "Average time",
+				"source": "Source",
+				"path": "Path"
        }
     }
   }, 
@@ -17,10 +21,12 @@ I18n.translations = {
         "title":"Titre",
         "visits":"Visites",
         "visitors":"Visiteurs", 
-        "pages_views": "Pages Vues", 
+        "page_views": "Pages Vues", 
         "keywords": "Mots clés", 
         "date": "Date", 
-        "average_time": "Temps moyen"
+        "average_time": "Temps moyen",
+				"source": "Source",
+				"path": "Chemin"
       }
     }
   }

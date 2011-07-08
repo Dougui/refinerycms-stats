@@ -21,13 +21,17 @@
 
 var myService;
 var dataTable;
-var sourceTable;
-var sourceChart;
-var sourceColumnChart;
+var pageViewsTable;
+var pageViewsChart;
+var pageViewsColumnChart;
 var visitsLineChart;
 var visitsTable;
 var timesOnSiteLineChart;
 var timesOnSiteTable;
+var sourcePieChart;
+var sourceTable;
+var keywordPieChart;
+var keywordTable;
 var scope = 'https://www.google.com/analytics/feeds';
 var profileId;
 var pageCode;
@@ -51,15 +55,26 @@ function collectStatsData(pageCodeArg) {
 
     pageCode = pageCodeArg;
     myService = new google.gdata.analytics.AnalyticsService('gaExportAPI_gViz_v1.0');
+    pageViewsTable = new google.visualization.Table(document.getElementById('pageViewsTableDiv'));
+    pageViewsChart = new google.visualization.PieChart(document.getElementById('pageViewsChartDiv'));
+    pageViewsColumnChart = new google.visualization.ColumnChart(document.getElementById('pageViewsColumnChartDiv'));
+
+
+    sourcePieChart = new google.visualization.PieChart(document.getElementById('sourcePieChartDiv'));
     sourceTable = new google.visualization.Table(document.getElementById('sourceTableDiv'));
-    sourceChart = new google.visualization.PieChart(document.getElementById('sourceChartDiv'));
-    sourceColumnChart = new google.visualization.ColumnChart(document.getElementById('sourceColumnChartDiv'));
+
+    keywordPieChart = new google.visualization.PieChart(document.getElementById('keywordPieChartDiv'));
+    keywordTable = new google.visualization.Table(document.getElementById('keywordTableDiv'));
+
     visitsLineChart = new google.visualization.LineChart(document.getElementById('visitsLineChartDiv'));
     visitsTable = new google.visualization.Table(document.getElementById('visitsTableDiv'));
+
     visitorsLineChart = new google.visualization.LineChart(document.getElementById('visitorsLineChartDiv'));
     visitorsTable = new google.visualization.Table(document.getElementById('visitorsTableDiv'));
+
     timesOnSiteLineChart = new google.visualization.LineChart(document.getElementById('timesOnSiteLineChartDiv'));
     timesOnSiteTable = new google.visualization.Table(document.getElementById('timesOnSiteTableDiv'));
+
     getWebPropertyFeed();
   } else {
     divLogin.style.visibility = 'visible';
@@ -89,8 +104,12 @@ function printWebPropertyFeed(result) {
     }
   }
   profileId = GAProfileId;
-  getDataFeed();
+  getPageViewsDataFeed();
   getVisitsDataFeed();
+  getVisitorsDataFeed();
+  getTimeOnSiteDataFeed();
+	getSourceDataFeed();
+	getKeywordDataFeed();
 }
 
 function getDateConditions() {
@@ -133,7 +152,7 @@ function getDateConditions() {
 /**
  * Request data from GA Export API
  */
-function getDataFeed() {
+function getPageViewsDataFeed() {
 	var myFeedUri = scope + '/data' + getDateConditions() +
     '&dimensions=ga:pageTitle,ga:pagePath' +
     '&metrics=ga:pageviews' +
@@ -141,7 +160,7 @@ function getDataFeed() {
     '&max-results=10' +
     '&ids=ga:' + profileId;
 
-  myService.getDataFeed(myFeedUri, handleMyDataFeed, handleError);
+  myService.getDataFeed(myFeedUri, handlePageViewsDataFeed, handleError);
 }
 
 /**
@@ -150,11 +169,65 @@ function getDataFeed() {
 function getVisitsDataFeed() {
   var myFeedUri = scope + '/data' + getDateConditions() +
     '&dimensions=ga:day,ga:year,ga:month,ga:date' +
-  	'&metrics=ga:visits,ga:visitors,ga:timeOnSite' +
+  	'&metrics=ga:visits' +
   	'&sort=ga:date' +
     '&ids=ga:' + profileId;
 
   myService.getDataFeed(myFeedUri, handleVisitsDataFeed, handleError);
+}
+
+/**
+ * Request data from GA Export API
+ */
+function getVisitorsDataFeed() {
+  var myFeedUri = scope + '/data' + getDateConditions() +
+    '&dimensions=ga:day,ga:year,ga:month,ga:date' +
+  	'&metrics=ga:visitors' +
+  	'&sort=ga:date' +
+    '&ids=ga:' + profileId;
+
+  myService.getDataFeed(myFeedUri, handleVisitorsDataFeed, handleError);
+}
+
+/**
+ * Request data from GA Export API
+ */
+function getTimeOnSiteDataFeed() {
+  var myFeedUri = scope + '/data' + getDateConditions() +
+    '&dimensions=ga:day,ga:year,ga:month,ga:date' +
+  	'&metrics=ga:timeOnSite,ga:visits' +
+  	'&sort=ga:date' +
+    '&ids=ga:' + profileId;
+
+  myService.getDataFeed(myFeedUri, handleTimeOnSiteDataFeed, handleError);
+}
+
+/**
+ * Request data from GA Export API
+ */
+function getSourceDataFeed() {
+  var myFeedUri = scope + '/data' + getDateConditions() +    
+		'&dimensions=ga:source' +
+    '&metrics=ga:visits' +
+    '&sort=-ga:visits' +
+    '&max-results=20' +
+    '&ids=ga:' + profileId;
+
+  myService.getDataFeed(myFeedUri, handleSourceDataFeed, handleError);
+}
+
+/**
+ * Request data from GA Export API
+ */
+function getKeywordDataFeed() {
+  var myFeedUri = scope + '/data' + getDateConditions() +    
+		'&dimensions=ga:keyword' +
+    '&metrics=ga:visits' +
+    '&sort=-ga:visits' +
+    '&max-results=20' +
+    '&ids=ga:' + profileId;
+
+  myService.getDataFeed(myFeedUri, handleKeywordDataFeed, handleError);
 }
 
 /**
@@ -173,15 +246,15 @@ function handleError(e) {
  * @param {Object} myResultsFeedRoot the feed object
  *     retuned by the data feed.
  */
-function handleMyDataFeed(myResultsFeedRoot) {
+function handlePageViewsDataFeed(resultsFeedRoot) {
   dataTable = new google.visualization.DataTable();
-  fillSourceDataTable(dataTable, myResultsFeedRoot);
-  sourceTable.draw(dataTable);
+  fillPageViewsDataTable(dataTable, resultsFeedRoot);
+  pageViewsTable.draw(dataTable);
 
   // remove the URI column to only graph 1 dimension
   dataTable.removeColumn(0);
-  sourceChart.draw(dataTable, {width: 950, height: 400});
-  sourceColumnChart.draw(dataTable, {width: 950, height: 300, legend: 'none'});
+  pageViewsChart.draw(dataTable, {width: 950, height: 400});
+  pageViewsColumnChart.draw(dataTable, {width: 950, height: 300, legend: 'none'});
 }
 
 /**
@@ -190,27 +263,39 @@ function handleMyDataFeed(myResultsFeedRoot) {
  * @param {Object} myResultsFeedRoot the feed object
  *     retuned by the data feed.
  */
-function handleVisitsDataFeed(myResultsFeedRoot) {
-  dataTable = new google.visualization.DataTable();
+function handleVisitsDataFeed(resultsFeedRoot) {
+	dataTable = new google.visualization.DataTable();
+  fillVisitsDataTable(dataTable, resultsFeedRoot);
+  visitsLineChart.draw(dataTable, {width: 750, height: 500, legend: 'none'});
+  visitsTable.draw(dataTable);
+}
 
-  visitsDataTable = new google.visualization.DataTable();
-  fillVisitsDataTable(visitsDataTable, myResultsFeedRoot);
-  visitsLineChart.draw(visitsDataTable, {width: 750, height: 500, legend: 'none'});
-  visitsTable.draw(visitsDataTable);
+function handleVisitorsDataFeed(resultsFeedRoot) {
+	dataTable = new google.visualization.DataTable();
+  fillVisitorsDataTable(dataTable, resultsFeedRoot);
+  visitorsLineChart.draw(dataTable, {width: 750, height: 500, legend: 'none'});
+  visitorsTable.draw(dataTable); 
+}
 
-  dataTable = new google.visualization.DataTable();
+function handleTimeOnSiteDataFeed(resultsFeedRoot) {
+	dataTable = new google.visualization.DataTable();
+  fillTimesOnSiteDataTable(dataTable, resultsFeedRoot);
+  timesOnSiteLineChart.draw(dataTable, {width: 750, height: 500, legend: 'none'});
+  timesOnSiteTable.draw(dataTable);
+}
 
-  visitorsDataTable = new google.visualization.DataTable();
-  fillVisitorsDataTable(visitorsDataTable, myResultsFeedRoot);
-  visitorsLineChart.draw(visitorsDataTable, {width: 750, height: 500, legend: 'none'});
-  visitorsTable.draw(visitorsDataTable);
+function handleSourceDataFeed(resultsFeedRoot) {
+	dataTable = new google.visualization.DataTable();
+  fillSourceDataTable(dataTable, resultsFeedRoot);
+  sourcePieChart.draw(dataTable, {width: 600, height: 400, legend: 'none'});
+  sourceTable.draw(dataTable);
+}
 
-  dataTable = new google.visualization.DataTable();
-
-  timesOnSiteDataTable = new google.visualization.DataTable();
-  fillTimesOnSiteDataTable(timesOnSiteDataTable, myResultsFeedRoot);
-  timesOnSiteLineChart.draw(timesOnSiteDataTable, {width: 750, height: 500, legend: 'none'});
-  timesOnSiteTable.draw(timesOnSiteDataTable);
+function handleKeywordDataFeed(resultsFeedRoot) {
+	dataTable = new google.visualization.DataTable();
+  fillKeywordDataTable(dataTable, resultsFeedRoot);
+  keywordPieChart.draw(dataTable, {width: 600, height: 400, legend: 'none'});
+  keywordTable.draw(dataTable);
 }
 
 /**
@@ -220,11 +305,36 @@ function handleVisitsDataFeed(myResultsFeedRoot) {
  * @param {Object} myResultsFeedRoot the feed returned by the GA Export API.
  * @return {Objcet} GViz DataTable object.
  */
-function fillSourceDataTable(dataTable, myResultsFeedRoot) {
+function fillPageViewsDataTable(dataTable, myResultsFeedRoot) {
   var entries = myResultsFeedRoot.feed.getEntries();
 
   var datas = getGADatasInTable(entries, ['pageTitle','pagePath','pageviews']); 
-  fillDataTable(entries, dataTable, [['string', I18n.t('admin.stats.title'), datas[0]],['string',  I18n.t('admin.stats.keywords'), datas[1]],['number',  I18n.t('admin.stats.pages_views'), datas[2]]]);
+  fillDataTable(entries, dataTable, [['string', I18n.t('admin.stats.title'), datas[0]],['string',  I18n.t('admin.stats.path'), datas[1]],['number',  I18n.t('admin.stats.page_views'), datas[2]]]);
+}
+
+function fillKeywordDataTable(dataTable, myResultsFeedRoot) {
+  var entries = myResultsFeedRoot.feed.getEntries();
+	var keywords = new Array();
+  var visits = new Array();
+
+  for (var i = 0, entry; entry = entries[i]; ++i) {
+		
+    if (entry.getValueOf('ga:keyword') != '(not set)') {
+      keywords.push(entry.getValueOf('ga:keyword'));
+      visits.push(entry.getValueOf('ga:visits'));
+    }
+  }
+
+  fillDataTable(entries, dataTable, [['string', I18n.t('admin.stats.keywords'), keywords],['number',  I18n.t('admin.stats.visits'), visits]]);
+	dataTable.removeRow(dataTable.getNumberOfRows()-1);
+}
+
+function fillSourceDataTable(dataTable, myResultsFeedRoot) {
+  var entries = myResultsFeedRoot.feed.getEntries();
+	var dates = new Array();
+
+  var datas = getGADatasInTable(entries, ['source', 'visits']);
+  fillDataTable(entries, dataTable, [['string', I18n.t('admin.stats.source'), datas[0]],['number',  I18n.t('admin.stats.visits'), datas[1]]]);
 }
 
 function fillVisitsDataTable(dataTable, myResultsFeedRoot) {
@@ -334,5 +444,3 @@ google.load('visualization', '1', {packages: ['piechart', 'table', 'columnchart'
 
 // Load the Google data JavaScript client library
 google.load('gdata', '2.x', {packages: ['analytics']});
-
-google.setOnLoadCallback(init);

@@ -15,16 +15,18 @@
   <%= t('.link_analytics_html') %>
   <div id="tabs">
     <ul>
-      <li><a href="#tabs-1"><%= t('.title_source') %></a></li>
+      <li><a href="#tabs-1"><%= t('.title_page_views') %></a></li>
       <li><a href="#tabs-2"><%= t('.title_visits') %></a></li>
       <li><a href="#tabs-3"><%= t('.title_visitors') %></a></li>
       <li><a href="#tabs-4"><%= t('.title_average_time') %></a></li>
+      <li><a href="#tabs-5"><%= t('.title_source') %></a></li>
+      <li><a href="#tabs-6"><%= t('.title_keywords') %></a></li>
     </ul>
     <div id="page_part_editors">
       <div id="tabs-1" class="stat">
-      <div id='sourceTableDiv'></div>
-      <div id='sourceColumnChartDiv' style="display:inline"></div>
-      <div id='sourceChartDiv' style="display:inline"></div>
+      <div id='pageViewsTableDiv'></div>
+      <div id='pageViewsColumnChartDiv' style="display:inline"></div>
+      <div id='pageViewsChartDiv' style="display:inline"></div>
     </div>
     <div id="tabs-2" class="stat"> 
       <table>
@@ -47,6 +49,22 @@
         <tr>
           <td><div id='timesOnSiteTableDiv' style="display:inline"></div></td>
           <td><div id='timesOnSiteLineChartDiv' style="display:inline"></div></td>
+        </tr>
+      </table>
+    </div>
+    <div id="tabs-5" class="stat">
+      <table>
+        <tr>
+          <td><div id='sourceTableDiv' style="display:inline"></div></td>
+          <td><div id='sourcePieChartDiv' style="display:inline"></div></td>
+        </tr>
+      </table>
+    </div>
+    <div id="tabs-6" class="stat">
+      <table>
+        <tr>
+          <td><div id='keywordTableDiv' style="display:inline"></div></td>
+          <td><div id='keywordPieChartDiv' style="display:inline"></div></td>
         </tr>
       </table>
     </div>

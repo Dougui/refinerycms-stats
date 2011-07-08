@@ -5,6 +5,8 @@ en:
   admin:
     stats:
       index:
+        title_keywords: Keywords
+        title_page_views: Page views
         title_source: Source
         title_visitors: Visitors
         title_visits: Visits
