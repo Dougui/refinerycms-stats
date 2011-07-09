@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform          = Gem::Platform::RUBY
   s.name              = 'refinerycms-stats'
-  s.version           = '1.0'
+  s.version           = '0.1'
   s.description       = 'Ruby on Rails Stats engine for Refinery CMS'
   s.date              = '2011-06-26'
   s.summary           = 'Stats engine for Refinery CMS'
