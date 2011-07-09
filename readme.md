@@ -17,7 +17,7 @@ Open your ``Gemfile`` and add this line to the bottom:
 Now run ``bundle install`` and once bundler has installed the gem run:
 
     rails generate refinerycms_stats
-		rake db:migrate
+    rake db:migrate
 
 Now, restart your web server and enjoy.
 
