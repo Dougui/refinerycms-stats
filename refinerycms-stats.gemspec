@@ -7,5 +7,7 @@ Gem::Specification.new do |s|
   s.summary           = 'Stats engine for Refinery CMS'
   s.require_paths     = %w(lib)
   s.files             = Dir['lib/**/*', 'config/**/*', 'app/**/*', 'public/**/*']  
-	s.authors 					= ['Guirec CORBEL']
+  s.authors           = ['Guirec CORBEL']
+  s.email             = 'guirec.corbel@gmail.com'
+  s.homepage          = 'http://www.guirec-corbel.com'
 end

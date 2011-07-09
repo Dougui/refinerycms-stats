@@ -1,10 +1,28 @@
-# Stats engine for Refinery CMS.
+# Stats plugin for [RefineryCMS](http://www.refinerycms.com) ([Github](http://github.com/resolve/refinerycms))
 
-## How to build this engine as a gem
+By: [Guirec Corbel](http://www.guirec-corbel.com)
 
-    cd vendor/engines/stats
-    gem build refinerycms-stats.gemspec
-    gem install refinerycms-stats.gem
-    
-    # Sign up for a http://rubygems.org/ account and publish the gem
-    gem push refinerycms-stats.gem
+## Requirements
+
+This engine requires RefineryCMS version >= 0.9.8.
+
+## Gem Installation
+
+Ensure you have created your application's database before adding this engine (with ``rake db:setup``).
+
+Open your ``Gemfile`` and add this line to the bottom:
+
+    gem 'refinerycms-stats', '~> '1.0'
+
+Now run ``bundle install`` and once bundler has installed the gem run:
+
+    rails generate refinerycms_stats
+
+Now, restart your web server and enjoy.
+
+## Description
+
+This plugin allows you to view information stored on Google Analytics. To view data, it is necessary to fill the value Analytics Page Code with the code for your account. You will then be asked to validate the data access for your site. Only 30 days are displayed. For more information it is necessary to visit Google Analytics.
+
+A description of the development of this engine is disponnible online at: http://www.guirec-corbel.com
+
