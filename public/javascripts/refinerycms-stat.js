@@ -124,7 +124,7 @@ function getDateConditions() {
   }
 
   var lastMonthDayStr;
-  if ((lastMonth.getDate() + 1) < 10) {
+  if (lastMonth.getDate() < 10) {
     lastMonthDayStr = '0'+(lastMonth.getDate());
   } else {
     lastMonthDayStr = (lastMonth.getDate());
@@ -138,7 +138,7 @@ function getDateConditions() {
   }
 
   var currentMonthDayStr;
-  if ((toDay.getDate() + 1) < 10) {
+  if (toDay.getDate() < 10) {
     currentMonthDayStr = '0'+(toDay.getDate());
   } else {
     currentMonthDayStr = (toDay.getDate());
