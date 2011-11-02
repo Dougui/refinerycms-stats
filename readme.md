@@ -12,7 +12,7 @@ Ensure you have created your application's database before adding this engine (w
 
 Open your ``Gemfile`` and add this line to the bottom:
 
-    gem 'refinerycms-stats', '~> '0.1'
+    gem 'refinerycms-stats', '~> 0.1'
 
 Now run ``bundle install`` and once bundler has installed the gem run:
 
